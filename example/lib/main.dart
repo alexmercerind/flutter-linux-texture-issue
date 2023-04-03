@@ -11,15 +11,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  int? textureID;
+  int? textureId;
 
   @override
   void initState() {
     super.initState();
     ExternalTexture.registerTexture().then((id) {
       setState(() {
-        textureID = id;
+        textureId = id;
       });
     });
   }
@@ -29,16 +28,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('flutter-linux-texture-issue'),
         ),
-        body: Center(
-          child: Column(children: [
-            textureID == null
-                ? const SizedBox()
-                : Expanded(child: Texture(textureId: textureID!)),
-            Text('Running on: $_platformVersion\n')
-          ]),
-        ),
+        body: textureId == null
+            ? const SizedBox()
+            : Texture(textureId: textureId!),
       ),
     );
   }
